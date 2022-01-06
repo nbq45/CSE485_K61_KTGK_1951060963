@@ -38,9 +38,27 @@
             return $arr_subj;
         }
 
-        public function deleteMh($id){
+        public function deleteMh($mamh){
             $conn = $this->connectDb();
-            $sql = "DELETE FROM monhoc WHERE mamh = '$id'";
+            $sql = "DELETE FROM monhoc WHERE mamh = '$mamh'";
+            $result = mysqli_query($conn,$sql);
+            $this->closeDb($conn);
+            return $result;
+        }
+        
+        public function getMh($mamh){
+            $conn = $this->connectDb();
+
+            $sql = "SELECT * FROM monhoc WHERE mamh = '$mamh'";
+            $result = mysqli_query($conn,$sql);
+            if(mysqli_num_rows($result) > 0)
+                $user = mysqli_fetch_assoc($result);
+            $this->closeDb($conn);
+        }
+
+        public function updateMh($mamh, $ten_mh, $sotinchi, $sotiet_lt, $sotiet_bt, $sotiet_thtn, $sogio_tuhoc) {
+            $conn = $this->connectDb();
+            $sql = "UPDATE monhoc SET mamh = '$mamh', ten_mh = '$ten_mh', sotinchi = '$sotinchi', sotietlt = '$sotiet_lt', sotiet_bt = '$sotiet_bt', sotiet_thtn = '$sotiet_thtn', sogio_tuhoc =  '$sogio_tuhoc' ";
             $result = mysqli_query($conn,$sql);
             $this->closeDb($conn);
             return $result;
