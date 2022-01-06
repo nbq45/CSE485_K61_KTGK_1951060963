@@ -10,7 +10,7 @@
         private $sotiet_thtn;
         private $sogio_tuhoc;
 
-        public function connectDb() {
+        public function connectDb(){
             $connection = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
             if (!$connection) {
                 die("Không thể kết nối. Lỗi: " .mysqli_connect_error());
@@ -23,7 +23,7 @@
             mysqli_close($connection);
         }
     
-        public function getAllMh() {
+        public function getAllMh(){
             $conn = $this->connectDb();
             $sql = "SELECT * FROM monhoc";
             $result = mysqli_query($conn,$sql);
@@ -36,6 +36,14 @@
             $this->closeDb($conn);
 
             return $arr_subj;
+        }
+
+        public function deleteMh($id){
+            $conn = $this->connectDb();
+            $sql = "DELETE FROM monhoc WHERE mamh = '$id'";
+            $result = mysqli_query($conn,$sql);
+            $this->closeDb($conn);
+            return $result;
         }
     }
 
